@@ -1,0 +1,41 @@
+var_initial_ro = 40
+var_s_hour_ro = var_initial_ro
+var_s_minute_ro = var_initial_ro
+var_s_is_night = false
+
+var_now_wedge_angle = 70
+var_status_wedge_angle = 30
+
+dim_bgcolor = '000000'
+dim_fgcolor = 'aaaaaa'
+bri_bgcolor = '000000'
+bri_fgcolor = 'ffffff'
+night_fgcolor = '074b48'
+night_bgcolor = dim_bgcolor
+lowbat_fgcolor = 'b94d18'
+lowbat_bgcolor = dim_bgcolor
+lowbat_level = 15
+var_fgcolor = bri_fgcolor
+var_bgcolor = bri_bgcolor
+
+function on_second(delta)
+    var_s_hour_ro = var_initial_ro - {drh}
+    var_s_minute_ro = var_initial_ro - {drm}
+
+    var_s_is_night = ({dh23} > 23 or {dh23} < 6)
+end
+
+function on_display_bright()
+    var_fgcolor = (({bl} < lowbat_level) and lowbat_fgcolor) or (var_s_is_night and night_fgcolor) or bri_fgcolor
+    var_bgcolor = (({bl} < lowbat_level) and lowbat_bgcolor) or (var_s_is_night and night_bgcolor) or bri_bgcolor
+end
+
+function on_display_not_bright()
+    var_bgcolor = ({bl} < lowbat_level) and lowbat_bgcolor or (var_s_is_night and night_bgcolor or dim_bgcolor)
+    var_fgcolor = ({bl} < lowbat_level) and lowbat_bgcolor or (var_s_is_night and night_fgcolor or dim_fgcolor)
+end
+
+function is_visible(now, start, finish)
+    half_day = 0.5
+    return ((start<=now) and (now<finish)) or ((now<start) and (finish-now<half_day))
+end
