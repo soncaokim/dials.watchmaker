@@ -1,4 +1,4 @@
-var_initial_ro = 35
+var_initial_ro = 5
 var_s_hour_ro = var_initial_ro
 var_s_minute_ro = var_initial_ro
 var_s_is_night = false
