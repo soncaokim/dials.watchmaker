@@ -3,7 +3,7 @@ var_s_hour_ro = var_initial_ro
 var_s_minute_ro = var_initial_ro
 var_s_is_night = false
 
-var_now_wedge_angle = 70
+var_now_wedge_angle = 65
 var_status_wedge_angle = 30
 
 dim_bgcolor = '000000'
